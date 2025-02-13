@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html dir="auto" lang="vi" >
+<head>
+	<meta charset="UTF-8" />
+	<title>Privacy - Hệ thống quản lý cây cao su</title>
+
+	<meta name="description" content="Hệ thống quản lý cây Cao Su là ứng dụng hỗ trợ giám sát, kiểm tra và báo cáo tình trạng cây cao su một cách hiệu quả. " />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" href="content/image/15qnwz3ip3owkjp64i14.png" />
+
+	<meta property="og:title" content="Privacy - Hệ thống quản lý cây cao su" />
+	<meta property="og:description" content="Hệ thống quản lý cây Cao Su là ứng dụng hỗ trợ giám sát, kiểm tra và báo cáo tình trạng cây cao su một cách hiệu quả. " />
+	<meta property="og:image" content="content/image/ykavwzqhkxjl4ktltads.png" />
+	<meta name="keywords" content="Quản lý lô cao su, Nhập &amp; kiểm tra trạng thái cây, Đồng bộ dữ liệu, Quản lý khu vực"/>
+	<meta name="copyright" content="Nine Plus Solutions Vietnam" />
+	<meta name="author" content="Nine Plus Solutions Vietnam" />
+	<meta name="robots" content="index,nofollow" />
+	<style>
+		:root {
+		  --font-xl: 42px;
+		  --font-lg: 24px;
+		  --font-md: 20px;
+		  --font-sm: 18px;
+		  --font-xs: 16px;
+		  --font-xxs: 14px;
+		
+		  --screenshot-width: 300px;
+		  --screenshot-height: 500px;
+		  /* Light */
+		  --background-light: #ffffff;
+		  --background-image-light: url(content/image/jawbk125ygfdka34cgut.jpg);
+		  --text-light: #222222;
+		  --text-color-footer-light: #8a8a8a;
+		  --text-color-link-hover-light: #1bee3e;
+		  
+		  /* Dark */
+		  --background-dark: #121212;
+		  --background-image-dark: url(assets/dark-background.svg);
+		  --text-dark: #e0e0e0;
+		  --text-color-footer-dark: #8a8a8a;
+		  --text-color-link-hover-dark: #58c530;
+		}
+		@media (max-width: 768px) {
+		  :root {
+		    --font-xl: 18px;
+		    --font-lg: 16px;
+		    --font-md: 14px;
+		    --font-sm: 12px;
+		    --font-xs: 12px;
+		    --font-xxs: 12px;
+		
+		    --screenshot-width: 250px;
+		    --screenshot-height: 300px;
+		  }
+		}
+		
+		/* Default */
+		html {
+		  --background-color: var(--background-light);
+		  --text-color: var(--text-light);
+		  --background-image: var(--background-image-light);
+		  --contrast-background-color: var(--background-dark);
+		  --text-color-footer: var(--text-color-footer-light);
+		  --text-color-link-hover: var(--text-color-link-hover-light)
+		}
+		/* Dark */
+		html.theme-dark {
+		  --background-color: var(--background-dark);
+		  --text-color: var(--text-dark);
+		  --background-image: var(--background-image-dark);
+		  --contrast-background-color: var(--background-light);
+		  --text-color-footer: var(--text-color-footer-dark);
+		  --text-color-link-hover: var(--text-color-link-hover-dark)  
+		}
+		
+		body {
+		  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+		  color: var(--text-color);
+		  display: flex;
+		  min-height: 100vh;
+		  flex-direction: column;
+		  font-size: var(--font-md);
+		  background-color: var(--background-color);
+		  background-image: var(--background-image);
+		  background-size: cover;
+		  background-position-x: 20vw;
+		  background-position-y: -10vh;
+		  background-repeat: no-repeat;
+		  line-height: 1.4;
+		}
+		
+		main {
+		  flex: 1;
+		  width: 100%;
+		}
+		
+		a {
+		  color: var(--text-color-footer);
+		  /*color: #65638f;*/
+		  text-decoration: none;
+		}
+		a:hover {
+		  color: var(--text-color-link-hover);
+		}
+		
+		.button {
+		  display: flex;
+		  background: linear-gradient(65deg, #DA552F, #ea8e39);
+		  font-family: "Heebo", sans-serif;
+		  color: #fff;
+		  display: inline-flex;
+		  font-size: var(--font-xxs);
+		  letter-spacing: 0px;
+		  font-weight: 700;
+		  line-height: 16px;
+		  text-transform: uppercase;
+		  text-decoration: none !important;
+		  border: none;
+		  border-radius: 2px;
+		  cursor: pointer;
+		  justify-content: center;
+		  padding: 16px 32px;
+		  text-align: center;
+		  white-space: nowrap;
+		  box-shadow: 0 8px 24px rgba(32, 43, 54, 0.12);
+		  mix-blend-mode: multiply;
+		  transition: all 0.15s ease;
+		}
+		.button:hover {
+		  color: #fff;
+		  box-shadow: 0 8px 24px rgba(32, 43, 54, 0.25);
+		}
+		.button--link {
+		  background: rgba(0, 0, 0, 0);
+		  color: #5A51FE;
+		  box-shadow: none;
+		}
+		.button--link:hover {
+		  color: #8751FE;
+		  box-shadow: none;
+		}
+		
+		.accent {
+		  color: #5A51FE;
+		}
+		
+		.container {
+		  max-width: 960px;
+		  padding: 0 30px;
+		  margin: auto;
+		}
+		
+		h1, h2 {
+		  font-family: "Heebo", sans-serif;
+		}
+		
+		.container-desktop {
+		  max-width: 960px;
+		  padding: 0 30px;
+		  margin: auto;
+		}
+		@media (max-width: 768px) {
+		  .container-desktop {
+		    max-width: 100%;
+		    padding: 0;
+		  }
+		}
+		
+		.tobi-zoom__icon {
+		  display: none;
+		}
+		
+		.app__header {
+		  display: flex;
+		  flex-direction: row;
+		  margin-top: 128px;
+		  margin-bottom: 128px;
+		  align-items: center;
+		}
+		@media (max-width: 768px) {
+		  .app__header {
+		    align-items: flex-start;
+		    margin-top: 32px;
+		    margin-bottom: 16px;
+		  }
+		}
+		.app__logo-wrapper {
+		  display: inline-block;
+		  background-size: contain;
+		  max-width: 250px;
+		  max-height: 250px;
+		  padding: 1px;
+		  margin-right: 64px;
+		  width: 100%;
+		  height: 100%;
+		  background-repeat: no-repeat;
+		}
+		html[dir=rtl] .app__logo-wrapper {
+		  margin-left: 64px;
+		  margin-right: 0;
+		}
+		@media (max-width: 768px) {
+		  .app__logo-wrapper {
+		    max-width: 100px;
+		    max-height: 100px;
+		    margin-right: 16px;
+		  }
+		}
+		.app__logo {
+		  border-radius: 22.5%;
+		  mask-size: cover;
+		  width: 100%;
+		  height: auto;
+		}
+		.app__name {
+		  font-size: var(--font-xl);
+		  margin: 0;
+		}
+		.app__description {
+		  font-size: var(--font-lg);
+		}
+		@media (max-width: 768px) {
+		  .app__description {
+		    margin-top: 8px;
+		    margin-bottom: 0;
+		  }
+		}
+		.app__screenshot-a{
+		  text-align:center;
+		}
+		.app__screenshots-list {
+		  display: grid;
+		  grid-template-columns: repeat(6, var(--screenshot-width));
+		  grid-column-gap: 15px;
+		  padding: 30px 0;
+		  
+		}
+		@media (max-width: 768px) {
+		  .app__screenshots-list {
+		    padding: 32px;
+		  }
+		}
+		.app__screenshot {
+		  max-width:var(--screenshot-width);
+		  height:var(--screenshot-height);
+		  object-fit:contain;
+		  border-radius: 16px;
+		  /*box-shadow: 0 12px 48px rgba(17, 16, 62, 0.12);*/
+		  transition: all 0.3s ease-in-out;
+		  transform: scale(1);
+		  cursor: pointer;
+		}
+		.app__screenshot:hover {
+		  /*box-shadow: 0 24px 48px rgba(17, 16, 62, 0.12);*/
+		  transform: scale(1.05);
+		}
+		.app__screenshots-wrapper {
+		  overflow-y: auto;
+		}
+		.app__feature-container {
+		margin:auto;
+		}
+		.app__feature-wrapper{
+		  display: flex;
+		  justify-content: center;
+		  width: 100%;
+		}
+		.app__feature {
+		  width: 40%;
+		  border-radius: 16px;
+		  transition: all 0.3s ease-in-out;
+		  transform: scale(1);
+		}
+		@media (max-width: 768px) {
+		  .app__feature {
+		    width: 80%;
+		  }
+		}
+		
+		.app__buttons {
+		  display: flex;
+		  flex-direction: row;
+		  align-items: center;
+		  margin-left: -9.8px;
+		}
+		.app__buttons--mobile {
+		  display: none;
+		}
+		@media (max-width: 768px) {
+		  .app__buttons {
+		    margin-left: 0;
+		    margin-bottom: 64px;
+		  }
+		  .app__buttons--mobile {
+		    display: flex;
+		    justify-content: center;
+		  }
+		  .app__buttons--desktop {
+		    display: none;
+		  }
+		}
+		.app__button-play img {
+		  width: 176.4px;
+		}
+		.app__button-ios img {
+		  width: 140px;
+		}
+		.app__button-web {
+		  margin-left: 12px;
+		}
+		.app__button-web img {
+		  width: 157px;
+		}
+		@media (max-width: 768px) {
+		  .app__button-play img {
+		    width: 126px;
+		  }
+		  .app__button-ios img {
+		    width: 100px;
+		  }
+		  .app__button-web {
+		    margin-left: 8px;
+		  }
+		  .app__button-web img {
+		    width: 112px;
+		  }
+		}
+		.app__section-title {
+		  font-size: var(--font-lg);
+		}
+		.app__section {
+		  margin-bottom: 128px;
+		}
+		@media (max-width: 768px) {
+		  .app__section {
+		    margin-bottom: 64px;
+		  }
+		}
+		.app__featured-content {
+		  display: grid;
+		  grid-template-columns: 1fr 1fr 1fr 1fr;
+		  grid-column-gap: 32px;
+		  align-items: center;
+		}
+		@media (max-width: 768px) {
+		  .app__featured-content {
+		    display: block;
+		    padding: 32px;
+		  }
+		}
+		.app__featured-image {
+		  width: 100%;
+		  margin: auto;
+		}
+		
+		.footer {
+		  padding: 16px 0;
+		  font-size: var(--font-xs) !important;
+		}
+		.footer a {
+		  font-size: var(--font-xs) !important;
+		}
+		.footer__container {
+		  color: var(--text-color-footer);
+		  display: flex;
+		  width: 100%;
+		  justify-content: space-between;
+		  align-items: center;
+		}
+		@media (max-width: 768px) {
+		  .footer__container {
+		    flex-direction: column-reverse;
+		    align-items: flex-start;
+		  }
+		}
+		.footer__links {
+		  list-style: none;
+		  display: flex;
+		  padding-left: 0;
+		}
+		.footer__link {
+		  margin-left: 32px;
+		}
+		@media (max-width: 768px) {
+		  .footer__link {
+		    margin-left: 0;
+		    margin-right: 8px;
+		  }
+		}
+		
+		.page {
+		  max-width: 960px;
+		  padding: 0 30px;
+		  margin: auto;
+		}
+		
+		.bulb {
+		  font-size: 1.5rem;
+		  background-color: rgba(0, 0, 0, 0.7);
+		  border-radius: 0.75em;
+		  /* box-shadow: 0.125em 0.125em 0 0.125em rgba(0, 0, 0, 0.3) inset; */
+		  color: #fdea7b;
+		  display: inline-flex;
+		  align-items: center;
+		  margin: auto;
+		  padding: 0.15em;
+		  width: 3em;
+		  height: 1.5em;
+		  transition: background-color 0.1s 0.3s ease-out, box-shadow 0.1s 0.3s ease-out;
+		  -webkit-appearance: none;
+		  -moz-appearance: none;
+		  appearance: none;
+		  z-index: 99;
+		  position:fixed;
+		  top: 2rem;
+		  right: 1rem;
+		}
+		
+		.bulb::before, .bulb:after {
+		  box-sizing: border-box;
+		  content: "";
+		  display: block;
+		}
+		
+		.bulb::before {
+		  background-color: #d7d7d7;
+		  border-radius: 50%;
+		  width: 1.2em;
+		  height: 1.2em;
+		  transition: background-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
+		  z-index: 100;
+		}
+		
+		.bulb::after {
+		  background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.15) 0) 0 50% / 50% 100%, repeating-linear-gradient(90deg, #bbb 0, #bbb, #bbb 20%, #999 20%, #999 40%) 0 50% / 50% 100%, radial-gradient(circle at 50% 50%, #888 25%, transparent 26%);
+		  background-repeat: no-repeat;
+		  border: 0.25em solid transparent;
+		  border-left: 0.4em solid #d8d8d8;
+		  border-right: 0 solid transparent;
+		  transition: border-left-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
+		  transform: translateX(-22.5%);
+		  transform-origin: 25% 50%;
+		  width: 1.2em;
+		  height: 1em;
+		}
+		
+		/* Checked */
+		.bulb:checked {
+		  background-color: rgba(0, 0, 0, 0.45);
+		  /* box-shadow: 0.125em 0.125em 0 0.125em rgba(0, 0, 0, 0.1) inset; */
+		}
+		
+		.bulb:checked::before {
+		  background-color: currentColor;
+		  transform: translateX(125%)
+		}
+		
+		.bulb:checked::after {
+		  border-left-color: currentColor;
+		  transform: translateX(-2.5%) rotateY(180deg);
+		}	</style>
+	<link rel="stylesheet" href="assets/tobi.css" />
+</head>
+	<body>
+		<main>
+			<input class="bulb" id="toggle-theme" type="checkbox" readOnly checked/>
+<article class="page">
+	<header class="page__header">
+		<h1 class="page__title">Privacy</h1>
+	</header>
+	<div class="page__content">
+		<p>Privacy Policy</p>
+<p>This privacy policy applies to the Quản lý cây Cao Su app (hereby referred to as &quot;Application&quot;) for mobile devices that was created by Nine Plus Solutions (hereby referred to as &quot;Service Provider&quot;) as a Free service. This service is intended for use &quot;AS IS&quot;.</p>
+<p>Information Collection and Use</p>
+<p>The Application collects information when you download and use it. This information may include information such as</p>
+<p>Your device&#39;s Internet Protocol address (e.g. IP address)</p>
+<p>The pages of the Application that you visit, the time and date of your visit, the time spent on those pages</p>
+<p>The time spent on the Application</p>
+<p>The operating system you use on your mobile device</p>
+<p>The Application does not gather precise information about the location of your mobile device.</p>
+<p>The Service Provider may use the information you provided to contact you from time to time to provide you with important information, required notices and marketing promotions.</p>
+<p>For a better experience, while using the Application, the Service Provider may require you to provide us with certain personally identifiable information. The information that the Service Provider request will be retained by them and used as described in this privacy policy.</p>
+<p>Third Party Access</p>
+<p>Only aggregated, anonymized data is periodically transmitted to external services to aid the Service Provider in improving the Application and their service. The Service Provider may share your information with third parties in the ways that are described in this privacy statement.</p>
+<p>Please note that the Application utilizes third-party services that have their own Privacy Policy about handling data. Below are the links to the Privacy Policy of the third-party service providers used by the Application:</p>
+<p>Google Play Services</p>
+<p>Google Analytics for Firebase</p>
+<p>Firebase Crashlytics</p>
+<p>The Service Provider may disclose User Provided and Automatically Collected Information:</p>
+<p>as required by law, such as to comply with a subpoena, or similar legal process;</p>
+<p>when they believe in good faith that disclosure is necessary to protect their rights, protect your safety or the safety of others, investigate fraud, or respond to a government request;</p>
+<p>with their trusted services providers who work on their behalf, do not have an independent use of the information we disclose to them, and have agreed to adhere to the rules set forth in this privacy statement.</p>
+<p>Opt-Out Rights</p>
+<p>You can stop all collection of information by the Application easily by uninstalling it. You may use the standard uninstall processes as may be available as part of your mobile device or via the mobile application marketplace or network.</p>
+<p>Data Retention Policy</p>
+<p>The Service Provider will retain User Provided data for as long as you use the Application and for a reasonable time thereafter. If you&#39;d like them to delete User Provided Data that you have provided via the Application, please contact them at <a href="mailto:&#x76;&#117;&#46;&#108;&#x74;&#x40;&#x6e;&#105;&#110;&#x65;&#x70;&#x6c;&#x75;&#x73;&#x2e;&#x76;&#110;">&#x76;&#117;&#46;&#108;&#x74;&#x40;&#x6e;&#105;&#110;&#x65;&#x70;&#x6c;&#x75;&#x73;&#x2e;&#x76;&#110;</a> and they will respond in a reasonable time.</p>
+<p>Children</p>
+<p>The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13.</p>
+<p>The Application does not address anyone under the age of 13. The Service Provider does not knowingly collect personally identifiable information from children under 13 years of age. In the case the Service Provider discover that a child under 13 has provided personal information, the Service Provider will immediately delete this from their servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact the Service Provider (<a href="mailto:&#118;&#x75;&#x2e;&#x6c;&#116;&#64;&#x6e;&#x69;&#110;&#101;&#x70;&#x6c;&#117;&#115;&#x2e;&#118;&#110;">&#118;&#x75;&#x2e;&#x6c;&#116;&#64;&#x6e;&#x69;&#110;&#101;&#x70;&#x6c;&#117;&#115;&#x2e;&#118;&#110;</a>) so that they will be able to take the necessary actions.</p>
+<p>Security</p>
+<p>The Service Provider is concerned about safeguarding the confidentiality of your information. The Service Provider provides physical, electronic, and procedural safeguards to protect information the Service Provider processes and maintains.</p>
+<p>Changes</p>
+<p>This Privacy Policy may be updated from time to time for any reason. The Service Provider will notify you of any changes to the Privacy Policy by updating this page with the new Privacy Policy. You are advised to consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes.</p>
+<p>This privacy policy is effective as of 2025-02-10</p>
+<p>Your Consent</p>
+<p>By using the Application, you are consenting to the processing of your information as set forth in this Privacy Policy now and as amended by us.</p>
+<p>Contact Us</p>
+<p>If you have any questions regarding privacy while using the Application, or have questions about the practices, please contact the Service Provider via email at <a href="mailto:&#118;&#x75;&#x2e;&#x6c;&#x74;&#x40;&#x6e;&#x69;&#110;&#101;&#112;&#x6c;&#x75;&#x73;&#x2e;&#118;&#x6e;">&#118;&#x75;&#x2e;&#x6c;&#x74;&#x40;&#x6e;&#x69;&#110;&#101;&#112;&#x6c;&#x75;&#x73;&#x2e;&#118;&#x6e;</a>.
+Link: <a href="https://sites.google.com/view/quanlycaosu">https://sites.google.com/view/quanlycaosu</a></p>
+
+	</div>
+</article>
+
+
+
+		</main>
+		<footer class="footer">
+			<div class="container">
+				<div class="footer__container">
+					<p class="footer__love">
+						<script>document.write('&copy;' + (new Date()).getFullYear());</script><noscript>&copy;2025</noscript> All rights reserved
+					</p>
+					<ul class="footer__links">
+							<li class="footer__link">
+								<a href="page-1.html">Privacy</a>
+							</li>
+							<li class="footer__link">
+								<a href="https://nineplus.com.vn/" targe="_blank">About Us</a>
+							</li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+
+		<script type="text/javascript" src="assets/tobi.min.js" /></script>
+		<script>
+			window.onload = function () {
+				var tobi = new Tobi();
+			};
+		</script>
+		<script>
+			window.onload = function () {
+					document.querySelector('#toggle-theme').addEventListener('change', (event) => {
+						if(event.target.checked){
+							document.getElementsByTagName("html")[0].className = "";
+						}else{
+							document.getElementsByTagName("html")[0].className = "theme-dark";
+						}
+						
+					});
+			};
+		</script>
+  </body>
+</html>
